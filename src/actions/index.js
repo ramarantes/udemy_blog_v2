@@ -33,12 +33,16 @@ export const fetchUser = id => async dispatch => {
 export const fetchPostAndUsers = id => async (dispatch,state) => {
     await dispatch(fetchPosts());
 
-    let data = state().posts.data;
+    //1st approach
+    //let data = state().posts.data;
+    // // let userIds = data.map(p => p.userId); //work as well
+    // let userIds = _.map(data,'userId');
+    // userIds = _.uniq(userIds);
 
-    // let userIds = data.map(p => p.userId); //work as well
-    let userIds = _.map(data,'userId');
-    userIds = _.uniq(userIds);
+    // //request individual users
+    // userIds.map(p => dispatch(fetchUser(p)));
 
-    //request individual users
-    userIds.map(p => dispatch(fetchUser(p)));
+    //2nd approach (using lodash )
+    _.chain(state().posts.data).map('userId').uniq().forEach(p => dispatch(fetchUser(p))).value();
+
 }
