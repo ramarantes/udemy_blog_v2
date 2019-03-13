@@ -11,14 +11,14 @@ class PostList extends React.Component {
     renderList() {
         return this.props.posts.data.map(p => {
             return (<div className="item" key={p.id} >
-                <i className="large midle aligned icon user" />
+                <div className="ui divider"></div>
+                <i className="ui large midle aligned icon user" />
                 <div className="content">
-                
                     <div className="description">
                         <h3>{p.title}</h3>
                         <p>{p.body}</p>
                     </div>
-                    <UserHeader userId={p.userId}/>
+                    <UserHeader userId={p.userId} />
                 </div>
             </div>)
         });
@@ -27,7 +27,7 @@ class PostList extends React.Component {
     render() {
         if (!this.props.posts) return <div>loading</div>;
         const list = this.renderList();
-        return (<div>{list}</div>)
+        return (<div className="ui list">{list}</div>)
     }
 }
 
